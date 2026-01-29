@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import { YooKassaClient } from '@/lib/payments/yookassa'
-import { SUBSCRIPTION_PLANS } from '@/lib/stripe/subscriptions'
+import { SUBSCRIPTION_PLANS, type SubscriptionTier } from '@/lib/stripe/subscriptions'
 
 export async function POST(request: Request) {
   try {
@@ -17,14 +17,14 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { tier } = body
 
-    if (!tier || !SUBSCRIPTION_PLANS[tier as keyof typeof SUBSCRIPTION_PLANS]) {
+    if (!tier || !(tier in SUBSCRIPTION_PLANS)) {
       return NextResponse.json(
         { error: 'Invalid subscription tier' },
         { status: 400 }
       )
     }
 
-    const plan = SUBSCRIPTION_PLANS[tier as keyof typeof SUBSCRIPTION_PLANS]
+    const plan = SUBSCRIPTION_PLANS[tier as SubscriptionTier]
     const amount = plan.priceRub || plan.price * 100 // Use rubles price or convert euros
 
     if (!process.env.YOOKASSA_SHOP_ID || !process.env.YOOKASSA_SECRET_KEY) {

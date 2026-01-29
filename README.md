@@ -53,6 +53,15 @@ STRIPE_ENTERPRISE_PRICE_ID=your_enterprise_price_id
 # Email (Resend)
 RESEND_API_KEY=your_resend_api_key
 
+# Telegram Mini App
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+
+# YooKassa (для российских карт)
+YOOKASSA_SHOP_ID=your_yookassa_shop_id
+YOOKASSA_SECRET_KEY=your_yookassa_secret_key
+YOOKASSA_TEST_MODE=true
+YOOKASSA_WEBHOOK_SECRET=your_webhook_secret
+
 # App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
@@ -155,10 +164,18 @@ dashboard/
 
 ### Vercel
 
-1. Подключите репозиторий к Vercel
-2. Добавьте все переменные окружения
-3. Настройте Cron job в `vercel.json`
-4. Деплой!
+**Быстрый старт:**
+1. Подготовьте репозиторий на GitHub/GitLab/Bitbucket
+2. Откройте [Vercel](https://vercel.com/new) и импортируйте репозиторий
+3. Добавьте все переменные окружения (см. `QUICK_DEPLOY.md`)
+4. Деплой произойдет автоматически!
+
+**Подробная инструкция:** см. `DEPLOY.md` или `QUICK_DEPLOY.md`
+
+**Важно после деплоя:**
+- Обновите `NEXT_PUBLIC_APP_URL` на URL вашего проекта
+- Настройте webhooks в Stripe и YooKassa
+- Настройте Telegram Mini App в @BotFather
 
 ## Ограничения по тарифам
 
